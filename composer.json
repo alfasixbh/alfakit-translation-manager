@@ -1,0 +1,89 @@
+{
+  "name": "alfasix/alfakit-translation-manager",
+  "description": "Let non-developers edit your Laravel app's translations in an AlfaKit panel: a keyboard-driven spreadsheet of keys and locales, placeholder and plural checks, an instant database override layer, safe export to lang files, source code scanning for missing and unused keys, and reviewed AI translations.",
+  "keywords": [
+    "laravel",
+    "alfakit",
+    "translations",
+    "localization",
+    "i18n",
+    "translation-manager"
+  ],
+  "homepage": "https://alfakit.dev/docs/plugins/translation-manager",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Alfa Six",
+      "homepage": "https://alfasixbh.com",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/alfasixbh/alfakit/issues",
+    "source": "https://github.com/alfasixbh/alfakit"
+  },
+  "require": {
+    "php": "^8.3",
+    "alfasix/alfakit": "^0.1|@dev"
+  },
+  "suggest": {
+    "laravel/ai": "Required for \"Translate missing with AI\" (^1.2)."
+  },
+  "autoload": {
+    "psr-4": {
+      "AlfaSix\\AlfakitTranslationManager\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "AlfaSix\\AlfakitTranslationManager\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "AlfaSix\\AlfakitTranslationManager\\AlfakitTranslationManagerServiceProvider"
+      ]
+    },
+    "alfakit": {
+      "version": "^0.1",
+      "frontend": null,
+      "showcase": {
+        "demoPath": "translations",
+        "tour": [
+          "Open Settings > Translations",
+          "Edit a key in the spreadsheet",
+          "Check placeholders and plurals",
+          "Scan the code for missing keys"
+        ],
+        "clips": [
+          "react-light",
+          "react-dark",
+          "vue-light",
+          "vue-dark",
+          "svelte-light",
+          "svelte-dark"
+        ],
+        "worksWith": [
+          "ai",
+          "cms",
+          "settings"
+        ],
+        "highlights": [
+          "Keyboard-driven spreadsheet of keys and locales",
+          "Placeholder and plural checks",
+          "Instant database override layer",
+          "Safe export to lang files",
+          "Code scanning for missing and unused keys",
+          "Reviewed AI translations"
+        ]
+      }
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}
