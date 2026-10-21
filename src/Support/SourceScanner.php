@@ -107,9 +107,11 @@ class SourceScanner
     public function extract(string $contents, bool $php = true): array
     {
         $functions = $php ? self::PHP_FUNCTIONS : self::JS_FUNCTIONS;
-        // The helper (not a method like `->t(` or a longer name like `format(`), then a
-        // quoted first argument, then maybe a concatenation (`.` in PHP, `+` in JS).
-        $pattern = '/(?<![\w$:.])(?<!->)'.$functions.'\s*\(\s*(?:\'((?:[^\'\\\\]|\\\\.)*)\'|"((?:[^"\\\\]|\\\\.)*)"|`((?:[^`\\\\]|\\\\.)*)`)(\s*[.+](?![.\d]))?/s';
+        // The helper (not a method like `->t(` / `obj.t(` or a longer name like `format(`),
+        // then a quoted first argument, then maybe a concatenation (`.` in PHP, `+` in JS).
+        // A dot before a PHP helper is a concatenation (`'Hi '.__('key')`), not a method.
+        $before = $php ? '(?<![\w$:])(?<!->)' : '(?<![\w$:.])(?<!->)';
+        $pattern = '/'.$before.$functions.'\s*\(\s*(?:\'((?:[^\'\\\\]|\\\\.)*)\'|"((?:[^"\\\\]|\\\\.)*)"|`((?:[^`\\\\]|\\\\.)*)`)(\s*[.+](?![.\d]))?/s';
 
         if (preg_match_all($pattern, $contents, $matches, PREG_SET_ORDER | PREG_UNMATCHED_AS_NULL) === false) {
             return [];

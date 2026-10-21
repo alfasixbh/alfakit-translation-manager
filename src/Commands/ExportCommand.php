@@ -6,6 +6,7 @@ namespace AlfaSix\AlfakitTranslationManager\Commands;
 
 use AlfaSix\AlfakitTranslationManager\TranslationManager;
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 
 /**
  * Write the database overrides to the lang files (backing up every overwritten file) and
@@ -23,7 +24,9 @@ class ExportCommand extends Command
         $locales = array_values(array_filter((array) $this->option('locale'), is_string(...)));
         $result = $manager->export($locales === [] ? null : $locales);
 
-        $this->components->info(sprintf('Wrote %d lines to %d files.', $result['lines'], count($result['files'])));
+        $files = count($result['files']);
+
+        $this->components->info(sprintf('Wrote %d %s to %d %s.', $result['lines'], Str::plural('line', $result['lines']), $files, Str::plural('file', $files)));
 
         if ($result['backup'] !== null) {
             $this->components->twoColumnDetail('Backup', $result['backup']);

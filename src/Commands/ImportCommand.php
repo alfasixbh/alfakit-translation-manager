@@ -6,6 +6,7 @@ namespace AlfaSix\AlfakitTranslationManager\Commands;
 
 use AlfaSix\AlfakitTranslationManager\TranslationManager;
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 
 /**
  * Copy the lines of the lang files into the database.
@@ -24,7 +25,7 @@ class ImportCommand extends Command
         $locales = array_values(array_filter((array) $this->option('locale'), is_string(...)));
         $count = $manager->import($locales === [] ? null : $locales, (bool) $this->option('overwrite'));
 
-        $this->components->info(sprintf('Imported %d lines.', $count));
+        $this->components->info(sprintf('Imported %d %s.', $count, Str::plural('line', $count)));
 
         return self::SUCCESS;
     }

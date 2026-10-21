@@ -83,6 +83,15 @@ it('finds the keys PHP, Blade and JavaScript files use, and dynamic prefixes', f
         ->and(manager()->scanner()->last()['keys'])->toHaveKey('auth.failed');
 });
 
+it('finds PHP helpers right after a concatenation dot', function (): void {
+    $scanner = new SourceScanner([]);
+
+    expect($scanner->extract("<?php echo 'Hi '.__('qa.greeting'); \$a = \"x\".trans('qa.b').'y';"))
+        ->toBe([['qa.greeting', false], ['qa.b', false]])
+        ->and($scanner->extract("<?php \$o->__('no.a'); Foo::__('no.b'); \$o?->trans('no.c');"))->toBe([])
+        ->and($scanner->extract("x = 'a' + t('js.k'); obj.t('no.no')", php: false))->toBe([['js.k', false]]);
+});
+
 it('ignores methods and longer function names that end like a helper', function (): void {
     $scanner = new SourceScanner([]);
 

@@ -133,7 +133,7 @@ it('adds a locale with its directory and JSON file', function (): void {
 it('exports and imports from the commands', function (): void {
     manager()->save(TranslationKey::parse('auth.legacy'), 'de', 'Alt');
 
-    tmTest()->artisan('alfakit-translations:export', ['--locale' => ['de']])->expectsOutputToContain('Wrote 1 lines to 1 files.')->assertSuccessful();
+    tmTest()->artisan('alfakit-translations:export', ['--locale' => ['de']])->expectsOutputToContain('Wrote 1 line to 1 file.')->assertSuccessful();
     expect((require lang('de/auth.php'))['legacy'])->toBe('Alt');
 
     tmTest()->artisan('alfakit-translations:import', ['--locale' => ['de']])->expectsOutputToContain('Imported 5 lines.')->assertSuccessful();
