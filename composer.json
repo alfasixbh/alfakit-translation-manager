@@ -24,7 +24,7 @@
     "source": "https://github.com/alfasixbh/alfakit"
   },
   "require": {
-    "php": "^8.3",
+    "php": "^8.4",
     "alfasix/alfakit": "^0.1|@dev"
   },
   "suggest": {
