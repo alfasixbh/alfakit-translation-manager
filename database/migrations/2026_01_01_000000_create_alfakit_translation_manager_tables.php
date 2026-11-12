@@ -59,7 +59,8 @@ return new class extends Migration
             $table->text('value');
             $table->string('source', 20)->default('ai');
             $table->json('warnings')->nullable();
-            $table->nullableMorphs('created_by');
+            // Named: the generated name is over MySQL's 64 characters.
+            $table->nullableMorphs('created_by', 'alfakit_translation_suggestions_author_index');
             $table->timestamps();
 
             $table->unique(['scope', 'locale', 'namespace', 'group', 'key_hash'], 'alfakit_translation_suggestions_unique');

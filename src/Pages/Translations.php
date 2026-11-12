@@ -278,7 +278,10 @@ class Translations extends Page
         return Action::make('scan')
             ->label(__('alfakit-translation-manager::translation-manager.actions.scan.label'))
             ->icon('scan-search')
-            ->authorize(static fn (): bool => static::getPlugin()->isAuthorized())
+            // Like import and export, not on a tenant-scoped panel: the scan reads the
+            // application's source and lists its file paths.
+            ->visible(static fn (): bool => ! static::getPlugin()->isTenantScoped())
+            ->authorize(static fn (): bool => static::getPlugin()->isAuthorized() && ! static::getPlugin()->isTenantScoped())
             ->action(function (): void {
                 $result = $this->manager()->scanner()->scan();
                 $this->catalog = null;
